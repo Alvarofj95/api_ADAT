@@ -13,8 +13,8 @@ con.on('open', () => {
 
 app.use(express.json())
 
-const animexRouter = require('./routes/animex')
-app.use('/animex', animexRouter)
+const animexRouter = require('./routes/routes')
+app.use(animexRouter)
 
 app.listen(3000, () => {
     console.log('Servidor arrancado')
