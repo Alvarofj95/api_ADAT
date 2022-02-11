@@ -1,71 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const Anime = require('../model/anime')
+const Anime_controller = require('../controllers/anime')
 
-router.get('/', async(req, res) => {
-    try {
-        
-        const animex = await Anime.find()
-        res.json(animex)
-        
-    } catch(err) {
-        
-        res.send('Error ' + err)
-
-    }
-})
-
-
-router.get('/:id', async(req, res) => {
-    try {
-        
-        const anime = await Anime.findById(req.params.id)
-        res.json(anime)
-        
-    } catch(err) {
-        
-        res.send('Error ' + err)
-
-    }
-})
-
-
-router.post('/', async(req, res) => {
-    const anime = new Anime({
-        title: req.body.title,
-        gender: req.body.gender,
-        seasons: req.body.seasons
-    })
-
-    try {
-        const a1 = await anime.save()
-        res.json(a1)
-    } catch (err) {
-        res.send('Error')
-    }
-
-
-})
-
-router.put('/:id', async(req, res) => {
-
- //   const id = 
-
-
-    
-    
-})
-
-router.delete('/:id', async(req,res) => {
-
-    try {
-        const removedPost = await anime.remove({_id: req.params.id})
-        res.json(removedPost)
-    } catch (err) {
-        res.send(err)
-    }
-    
-})
-
+router.get('/', Anime_controller.anime_return)
+router.get('/:id', Anime_controller.anime_details)
+router.post('/', Anime_controller.anime_create)
+router.put('/:id', Anime_controller.anime_update)
+router.delete('/:id', Anime_controller.anime_delete)
 
 module.exports = router
