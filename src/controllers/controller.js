@@ -55,9 +55,67 @@ exports.animeDetails = (req, res) => {
     })
 }
 
+//Get por titulo
+exports.animeTitle = function(req, res) {
+    Anime.find({title: req.params.title})
+    .then(data => {
+        if(!data){
+            return res.status(404).send({
+                success: false,
+                message: "Anime no encontrado por el titulo: " + req.params.title
+            })
+        }
+        res.send({
+            success: true,
+            message: "Anime obtenido correctamente",
+            data: data
+        })
+        }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                success: false,
+                message: "Anime no encontrado por el titulo: " + req.params.title
+            })
+        }
+        return res.status(500).send({
+            success: false,
+            message: "Error interno en el Anime con title: " + req.params.title
+        })
+    })
+}
+
+//Get por seasons
+exports.animeSeasons = function(req, res) {
+    Anime.find({seasons: req.params.seasons})
+    .then(data => {
+        if(!data){
+            return res.status(404).send({
+                success: false,
+                message: "Anime no encontrado por el titulo: " + req.params.title
+            })
+        }
+        res.send({
+            success: true,
+            message: "Anime obtenido correctamente",
+            data: data
+        })
+        }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                success: false,
+                message: "Anime no encontrado por el titulo: " + req.params.title
+            })
+        }
+        return res.status(500).send({
+            success: false,
+            message: "Error interno en el Anime con title: " + req.params.title
+        })
+    })
+}
+
 //Post
 exports.animeCreate = function(req, res) {
-    if(!req.body.title || !req.body.gender || !req.body.seasons || !req.body.description || !req.body.url){
+    if(!req.body.title || !req.body.gender || !req.body.seasons){
         return res.status(400).send({
 
             success: false,
@@ -87,7 +145,7 @@ exports.animeCreate = function(req, res) {
 //Put-update
 exports.animeUpdate = (req, res) => {
     //validar el request
-    if(!req.body.title || !req.body.gender || !req.body.seasons || !req.body.description || !req.body.url){
+    if(!req.body.title || !req.body.gender || !req.body.seasons){
         return res.status(400).send({
             success:false,
             message: "Introduzca correctamente los datos"
