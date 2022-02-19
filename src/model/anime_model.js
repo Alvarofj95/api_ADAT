@@ -14,6 +14,14 @@ const animeSchema = new mongoose.Schema({
     seasons: {
         type: String,
         required: true
+    }, 
+    description: {
+        type: String,
+        required: true
+    }, 
+    url: {
+        type: String,
+        required: true
     }
 })
 

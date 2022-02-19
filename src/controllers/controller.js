@@ -57,7 +57,7 @@ exports.animeDetails = (req, res) => {
 
 //Post
 exports.animeCreate = function(req, res) {
-    if(!req.body.title || !req.body.gender || !req.body.seasons){
+    if(!req.body.title || !req.body.gender || !req.body.seasons || !req.body.description || !req.body.url){
         return res.status(400).send({
 
             success: false,
@@ -67,7 +67,9 @@ exports.animeCreate = function(req, res) {
     let anime = new Anime({
         title: req.body.title,
         gender: req.body.gender,
-        seasons: req.body.seasons
+        seasons: req.body.seasons,
+        description: req.body.description,
+        url: req.body.url
     })
 
     //grabar los datos
@@ -85,7 +87,7 @@ exports.animeCreate = function(req, res) {
 //Put-update
 exports.animeUpdate = (req, res) => {
     //validar el request
-    if(!req.body.title || !req.body.gender || !req.body.seasons){
+    if(!req.body.title || !req.body.gender || !req.body.seasons || !req.body.description || !req.body.url){
         return res.status(400).send({
             success:false,
             message: "Introduzca correctamente los datos"
