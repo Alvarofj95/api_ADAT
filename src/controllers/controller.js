@@ -8,15 +8,14 @@ const User = require('../model/user_model')
 //Get todo
 exports.animeReturn = function(req, res) {
     Anime.find()
-    .then(data => {
+    .then(array => {
         var message = "";
-        if (data === undefined || data.length == 0) message = "no hay animes"
+        if (array === undefined || array.length == 0) message = "no hay animes"
         else message = "Se han procesado los datos correctamente"
         
         res.send({
-            success: true,
-            message: message,
-            data: data
+            
+            array
         })
     }).catch(err => {
         res.status(500).send({
@@ -29,8 +28,8 @@ exports.animeReturn = function(req, res) {
 //Get concreto
 exports.animeDetails = (req, res) => {
     Anime.findById(req.params.id)
-    .then(data => {
-        if(!data){
+    .then(array => {
+        if(!array){
             return res.status(404).send({
                 success: false,
                 message: "Anime no encontrado por el id: " + req.params.id
@@ -39,7 +38,7 @@ exports.animeDetails = (req, res) => {
         res.send({
             success: true,
             message: "Anime obtenido correctamente",
-            data: data
+            array: array
         })
     }).catch(err => {
         if(err.kind === 'ObjectId') {
@@ -58,8 +57,8 @@ exports.animeDetails = (req, res) => {
 //Get por titulo
 exports.animeTitle = function(req, res) {
     Anime.find({title: req.params.title})
-    .then(data => {
-        if(!data){
+    .then(array => {
+        if(!array){
             return res.status(404).send({
                 success: false,
                 message: "Anime no encontrado por el titulo: " + req.params.title
@@ -68,7 +67,7 @@ exports.animeTitle = function(req, res) {
         res.send({
             success: true,
             message: "Anime obtenido correctamente",
-            data: data
+            array: array
         })
         }).catch(err => {
         if(err.kind === 'ObjectId') {
@@ -87,8 +86,8 @@ exports.animeTitle = function(req, res) {
 //Get por seasons
 exports.animeSeasons = function(req, res) {
     Anime.find({seasons: req.params.seasons})
-    .then(data => {
-        if(!data){
+    .then(array => {
+        if(!array){
             return res.status(404).send({
                 success: false,
                 message: "Anime no encontrado por el titulo: " + req.params.title
@@ -97,7 +96,7 @@ exports.animeSeasons = function(req, res) {
         res.send({
             success: true,
             message: "Anime obtenido correctamente",
-            data: data
+            array: array
         })
         }).catch(err => {
         if(err.kind === 'ObjectId') {
@@ -132,11 +131,11 @@ exports.animeCreate = function(req, res) {
 
     //grabar los datos
     anime.save()
-    .then(data => {
+    .then(array => {
         res.send({
             success: true,
             message: "Creado anime correctamente",
-            data: data
+            array: array
         })
     })
 
@@ -155,8 +154,8 @@ exports.animeUpdate = (req, res) => {
     Anime.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }, {new: true})
-        .then(data => {
-            if(!data){
+        .then(array => {
+            if(!array){
                 return res.status(404).send({
                     success: false, 
                     message: "Anime no encontrado con el id: " + req.params.id
@@ -164,7 +163,7 @@ exports.animeUpdate = (req, res) => {
             }
             res.send({
                 success: true,
-                data: data
+                array: array
             })
         }).catch(err => {
             if(err.kind === 'ObjectId') {
@@ -182,8 +181,8 @@ exports.animeUpdate = (req, res) => {
 //Eliminar un Anime con id especifico
 exports.animeDelete = (req, res) => {
     Anime.findByIdAndRemove(req.params.id)
-        .then(data =>{
-            if(!data){
+        .then(array =>{
+            if(!array){
                 return res.status(404).send({
                     success: false,
                     message: "El Anime no se encuentra con ese id: " + req.params.id
@@ -214,15 +213,15 @@ exports.animeDelete = (req, res) => {
 //Get todo
 exports.userReturn = function(req, res) {
     User.find()
-    .then(data => {
+    .then(array => {
         var message = "";
-        if (data === undefined || data.length == 0) message = "no hay usuarios"
+        if (array === undefined || array.length == 0) message = "no hay usuarios"
         else message = "Se han procesado los datos correctamente"
         
         res.send({
             success: true,
             message: message,
-            data: data
+            array: array
         })
     }).catch(err => {
         res.status(500).send({
@@ -235,8 +234,8 @@ exports.userReturn = function(req, res) {
 //Get concreto
 exports.userDetails = (req, res) => {
     User.findById(req.params.id)
-    .then(data => {
-        if(!data){
+    .then(array => {
+        if(!array){
             return res.status(404).send({
                 success: false,
                 message: "Usuario no encontrado por el id: " + req.params.id
@@ -245,7 +244,7 @@ exports.userDetails = (req, res) => {
         res.send({
             success: true,
             message: "Usuario obtenido correctamente",
-            data: data
+            array: array
         })
     }).catch(err => {
         if(err.kind === 'ObjectId') {
@@ -277,11 +276,11 @@ exports.userCreate = function(req, res) {
 
     //grabar los datos
     user.save()
-    .then(data => {
+    .then(array => {
         res.send({
             success: true,
             message: "Creado usuario correctamente",
-            data: data
+            array: array
         })
     })
 
@@ -300,8 +299,8 @@ exports.userUpdate = (req, res) => {
     User.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }, {new: true})
-        .then(data => {
-            if(!data){
+        .then(array => {
+            if(!array){
                 return res.status(404).send({
                     success: false, 
                     message: "Usuario no encontrado con el id: " + req.params.id
@@ -309,7 +308,7 @@ exports.userUpdate = (req, res) => {
             }
             res.send({
                 success: true,
-                data: data
+                array: array
             })
         }).catch(err => {
             if(err.kind === 'ObjectId') {
@@ -327,8 +326,8 @@ exports.userUpdate = (req, res) => {
 //Eliminar un usuario con id especifico
 exports.userDelete = (req, res) => {
     User.findByIdAndRemove(req.params.id)
-        .then(data =>{
-            if(!data){
+        .then(array =>{
+            if(!array){
                 return res.status(404).send({
                     success: false,
                     message: "El usuario no se encuentra con ese id: " + req.params.id

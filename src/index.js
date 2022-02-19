@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const url = 'mongodb://localhost/animex'
+const url = 'mongodb+srv://Alvaro:passwordAlvaro@aniimex.5yqpe.mongodb.net/Aniimex?retryWrites=true&w=majority'
 
 const app = express()
 

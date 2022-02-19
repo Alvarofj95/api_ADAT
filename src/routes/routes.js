@@ -6,7 +6,7 @@ const controller = require('../controllers/controller')
 //Anime
 router.get('/animes', controller.animeReturn)
 router.get('/anime/:id', controller.animeDetails)
-router.get('/animeTitulo/:title', controller.animeTitle)
+router.get('/animeTitulo/', controller.animeTitle)
 router.get('/animeSeasons/:seasons', controller.animeSeasons)
 router.post('/addAnime/', controller.animeCreate)
 router.put('/updateAnime/:id', controller.animeUpdate)
